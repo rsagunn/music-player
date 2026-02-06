@@ -28,7 +28,7 @@ def load_folder(): #func load folder
     current_song = 0
 
     for file in os.listdir(folder): # scan files in folder
-        if file.lower().endswith(".mp3"): # lower case and check if end w/ .mp3
+        if file.lower().endswith(".mp3"): # lower case and check if end with .mp3
             path = os.path.join(folder, file) # full path
 
             try:
@@ -38,6 +38,23 @@ def load_folder(): #func load folder
             except:
                 title = file # if no metadata included
                 artist = "Unknown Artist" # use this name
+
+
+            song = {
+                "title": title,
+                "artist": artist,
+                "path": path
+            }
+
+            playlist.append(song)
+
+    
+    if playlist: # if songs found
+        print("Loaded songs:") 
+        for song in playlist: # print title and artist
+            print(f"{song['title']} - {song['artist']}") # print title and artist
+    else:
+        print("No MP3 files found")
 
 
 
