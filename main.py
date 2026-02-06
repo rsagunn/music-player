@@ -26,6 +26,7 @@ def load_folder(): #func load folder
 
     playlist = [] 
     current_song = 0
+    song_list.delete(0, tk.END)
 
     for file in os.listdir(folder): # scan files in folder
         if file.lower().endswith(".mp3"): # lower case and check if end with .mp3
@@ -40,13 +41,13 @@ def load_folder(): #func load folder
                 artist = "Unknown Artist" # use this name
 
 
-            song = {
+            playlist.append({
                 "title": title,
                 "artist": artist,
                 "path": path
-            }
+            })
 
-            playlist.append(song)
+            song_list.insert(tk.END, f"{title} - {artist}")
 
     
     if playlist: # if songs found
@@ -84,6 +85,17 @@ window = tk.Tk() # create the window
 window.title("Nightwave") # window title
 window.geometry("400x300") # size
 window.configure(bg="#363636") # background color
+
+song_list = tk.Listbox(
+    window,
+    width=55,
+    height=10,
+    bg="#222222",
+    fg="white",
+    selectbackground="#555555"
+)
+
+song_list.pack(pady=10)
 
 
 tk.Button(window, text="Load Folder", command=load_folder).pack(pady=5)   
