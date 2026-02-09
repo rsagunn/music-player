@@ -73,6 +73,22 @@ def play_song(): # define play song
         text=f"Now Playing: {playlist[current_song]['title']} - {playlist[current_song]['artist']}" # now playing label
     )
 
+    song_list.selection_clear(0, tk.END)
+    song_list.selection_set(current_song) # select current song
+
+
+
+
+def select_song(event): # define select song
+    global current_song 
+
+    selection = song_list.curselection() # get selected list
+    if not selection: # if no selection
+        return
+
+    current_song = selection[0] # set current song
+
+
 
 
 
@@ -115,6 +131,10 @@ song_list = tk.Listbox(
 )
 
 song_list.pack(pady=10)
+
+song_list.bind("<<ListboxSelect>>", select_song)
+
+
 
 
 now_playing = tk.Label(
