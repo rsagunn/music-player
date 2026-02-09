@@ -55,7 +55,7 @@ def load_folder(): #func load folder
         for song in playlist: # print title and artist
             print(f"{song['title']} - {song['artist']}") # print title and artist
     else:
-        print("No MP3 files found")
+        print("No MP3 files found") 
 
 
 def play_song(): # define play song
@@ -77,7 +77,7 @@ def play_song(): # define play song
     song_list.selection_set(current_song) # select current song
 
 
-
+#select songs and show all controls
 
 def select_song(event): # define select song
     global current_song 
@@ -92,20 +92,9 @@ def select_song(event): # define select song
 
 
 
-
-
-#display mp3 files in a list with metadata
-
-
-
-
-#select songs and show all controls
-
-
-
-
-
-#keep playing songs in a loop until user exits
+def set_volume(value): 
+    volume = float(value) / 100  # convert 0–100 to 0.0–1.0
+    pygame.mixer.music.set_volume(volume) # set volume
 
 
 
@@ -115,7 +104,7 @@ def select_song(event): # define select song
 # window
 window = tk.Tk() # create the window
 window.title("Nightwave") # window title
-window.geometry("400x300") # size
+window.geometry("500x500") # size
 window.configure(bg="#363636") # background color
 
 
@@ -147,6 +136,30 @@ now_playing.pack(pady=5)
 
 controls = tk.Frame(window, bg="#363636")
 controls.pack(pady=10)
+
+
+
+volume_label = tk.Label(
+    window,
+    text="Volume",
+    bg="#363636",
+    fg="white"
+)
+volume_label.pack() # pack label
+
+volume_slider = tk.Scale(
+    window,
+    from_=0,
+    to=100,
+    orient=tk.HORIZONTAL,
+    command=set_volume, # set volume
+    bg="#363636",
+    fg="white",
+    highlightthickness=0 
+)
+volume_slider.set(50)  # default volume = 50%
+volume_slider.pack(pady=5) # slider
+
 
 
 
