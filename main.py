@@ -90,6 +90,17 @@ def select_song(event): # define select song
 
 
 
+def pause_song():
+    global paused
+    if paused:
+        pygame.mixer.music.unpause()
+        paused = False
+    else:
+        pygame.mixer.music.pause()
+        paused = True
+
+
+
 
 
 def set_volume(value): 
@@ -108,7 +119,17 @@ window.geometry("500x500") # size
 window.configure(bg="#363636") # background color
 
 
-tk.Button(window, text="Load Folder", command=load_folder).pack(pady=5)   
+tk.Button(window, text="Load Folder", command=load_folder).pack(side=tk.TOP, padx=10, pady=5)   
+
+
+now_playing = tk.Label(
+    window,
+    text="Now Playing: None",
+    bg="#363636",
+    fg="white"
+)
+now_playing.pack(pady=5)
+
 
 song_list = tk.Listbox(
     window,
@@ -123,20 +144,8 @@ song_list.pack(pady=10)
 
 song_list.bind("<<ListboxSelect>>", select_song)
 
-
-
-
-now_playing = tk.Label(
-    window,
-    text="Now Playing: None",
-    bg="#363636",
-    fg="white"
-)
-now_playing.pack(pady=5)
-
 controls = tk.Frame(window, bg="#363636")
 controls.pack(pady=10)
-
 
 
 volume_label = tk.Label(
@@ -162,8 +171,8 @@ volume_slider.pack(pady=5) # slider
 
 
 
-
 tk.Button(controls, text="▶ Play", command=play_song).grid(row=0, column=1, padx=5)
+tk.Button(controls, text="⏸ Pause/Unpause", command=pause_song).grid(row=0, column=2, padx=5)
 
 
 window.mainloop() 
