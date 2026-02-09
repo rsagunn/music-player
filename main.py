@@ -108,6 +108,16 @@ def set_volume(value):
     pygame.mixer.music.set_volume(volume) # set volume
 
 
+def next_song():
+    global current_song
+    current_song = (current_song + 1) % len(playlist)
+    play_song()
+
+
+def previous_song():
+    global current_song
+    current_song = (current_song - 1) % len(playlist)
+    play_song()
 
 
 #add a fullscreen feature
@@ -173,6 +183,8 @@ volume_slider.pack(pady=5) # slider
 
 tk.Button(controls, text="▶ Play", command=play_song).grid(row=0, column=1, padx=5)
 tk.Button(controls, text="⏸ Pause/Unpause", command=pause_song).grid(row=0, column=2, padx=5)
+tk.Button(controls, text="⏮ Previous", command=previous_song).grid(row=0, column=3, padx=5)
+tk.Button(controls, text="⏭ Next", command=next_song).grid(row=0, column=4, padx=5)
 
 
 window.mainloop() 
