@@ -58,6 +58,22 @@ def load_folder(): #func load folder
         print("No MP3 files found")
 
 
+def play_song(): # define play song
+    global paused
+
+    if not playlist: #if no playlist
+        return
+
+    song_path = playlist[current_song]["path"] # get song path
+    pygame.mixer.music.load(song_path) # load song
+    pygame.mixer.music.play() # play song
+    paused = False # set paused to false
+
+    now_playing.config(
+        text=f"Now Playing: {playlist[current_song]['title']} - {playlist[current_song]['artist']}" # now playing label
+    )
+
+
 
 
 
@@ -86,6 +102,9 @@ window.title("Nightwave") # window title
 window.geometry("400x300") # size
 window.configure(bg="#363636") # background color
 
+
+tk.Button(window, text="Load Folder", command=load_folder).pack(pady=5)   
+
 song_list = tk.Listbox(
     window,
     width=55,
@@ -98,7 +117,20 @@ song_list = tk.Listbox(
 song_list.pack(pady=10)
 
 
-tk.Button(window, text="Load Folder", command=load_folder).pack(pady=5)   
+now_playing = tk.Label(
+    window,
+    text="Now Playing: None",
+    bg="#363636",
+    fg="white"
+)
+now_playing.pack(pady=5)
+
+controls = tk.Frame(window, bg="#363636")
+controls.pack(pady=10)
+
+
+
+tk.Button(controls, text="▶ Play", command=play_song).grid(row=0, column=1, padx=5)
 
 
 window.mainloop() 
