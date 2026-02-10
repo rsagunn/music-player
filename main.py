@@ -127,6 +127,7 @@ window = tk.Tk() # create the window
 window.title("Nightwave") # window title
 window.geometry("500x500") # size
 window.configure(bg="#363636") # background color
+window.iconbitmap("icon.ico")
 
 
 tk.Button(window, text="Load Folder", command=load_folder).pack(side=tk.TOP, padx=10, pady=5)   
